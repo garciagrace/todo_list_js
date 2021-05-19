@@ -5,8 +5,98 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <!-- Font -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;700;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- Custom Style -->
     <link rel="stylesheet" href="./style.css" />
     <title>Todo List</title>
   </head>
-  <body></body>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1 class="title">Todo List</h1>
+        <div class="theme-mode" id="toggle-icon">
+          <i class="fas fa-sun"></i>
+        </div>
+      </div>
+
+      <div class="task-wrapper">
+        <!-- All task -->
+        <div class="all-tasks">
+          <h2 class="task-list-title">My lists</h2>
+          <ul class="task-list">
+            <li class="list-name active-list">Household Chores</li>
+            <li class="list-name">Grocery</li>
+          </ul>
+
+          <!-- Create New List -->
+          <form action="">
+            <input type="text" class="new list" placeholder="Add new list" />
+            <button class="btn create">+</button>
+          </form>
+        </div>
+
+        <div class="todo-list">
+          <!-- Current Todo -->
+          <div class="todo-header">
+            <h2 class="list-title">Household Chores</h2>
+            <p class="task-count">2 tasks remaining</p>
+          </div>
+
+          <!-- Todo 1 -->
+          <div class="todo-body">
+            <div class="tasks">
+              <div class="task">
+                <input type="checkbox" id="task-1" />
+                <label for="task-1">
+                  <span class="custom-checkbox"></span>
+                  Doing the laundry
+                </label>
+              </div>
+
+              <!-- Todo 2 -->
+              <div class="task">
+                <input type="checkbox" id="task-2" />
+                <label for="task-2">
+                  <span class="custom-checkbox"></span>
+                  Dusting and sweeping dust.
+                </label>
+              </div>
+            </div>
+
+            <div class="new-task-creator">
+              <!-- Create new task -->
+              <form action="">
+                <input
+                  type="text"
+                  class="new task"
+                  placeholder="Add new task"
+                />
+                <button class="btn create">+</button>
+              </form>
+            </div>
+
+            <div class="delete-stuff">
+              <button class="btn delete">Clear completed tasks</button>
+              <button class="btn delete">Delete list</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
