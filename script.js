@@ -15,10 +15,14 @@ const clearCompleteTasksButton = document.querySelector(
 );
 const deleteListButton = document.querySelector('[data-delete-list-button]');
 
+const themeToggle = document.querySelector('[data-theme-toggle]');
+
 const LOCAL_STORAGE_LIST_KEY = 'task.lists';
 const LOCAL_STORAGE_SELECTED_LIST_ID_KEY = 'task.selectedListId';
+const LOCAL_STORAGE_TODO_THEME = 'task.themeMode';
 let lists = JSON.parse(localStorage.getItem(LOCAL_STORAGE_LIST_KEY)) || [];
 let selectedListId = localStorage.getItem(LOCAL_STORAGE_SELECTED_LIST_ID_KEY);
+let themeMode = localStorage.getItem(LOCAL_STORAGE_TODO_THEME);
 
 // Fetching the ID of selected task on the list
 listsContainer.addEventListener('click', (e) => {
@@ -116,6 +120,8 @@ function render() {
     clearElement(tasksContainer);
     renderTodos(selectedList);
   }
+
+  checkTheme();
 }
 
 // Rendering list of task
@@ -160,6 +166,38 @@ function clearElement(element) {
   while (element.firstChild) {
     element.removeChild(element.firstChild);
   }
+}
+
+// Switch theme mode via toggler
+themeToggle.addEventListener('click', (e) => {
+  themeMode = themeMode === 'Light' ? 'Dark' : 'Light';
+  swicthMode();
+});
+
+// Check current theme
+function checkTheme() {
+  let mode = document.body.classList.contains('dark-mode') ? 'Dark' : 'Light';
+
+  if (mode !== themeMode && themeMode !== null) {
+    swicthMode();
+  }
+}
+
+// Toggle between dark and light theme
+function swicthMode() {
+  if (themeMode === 'Light') {
+    themeToggle.classList.replace('fa-sun', 'fa-moon');
+  } else {
+    themeToggle.classList.replace('fa-moon', 'fa-sun');
+  }
+
+  document.body.classList.toggle('dark-mode');
+  document.querySelector('.title').classList.toggle('dark-mode');
+  document.querySelector('.todo-header').classList.toggle('dark-mode');
+  document.querySelector('.todo-list').classList.toggle('dark-mode');
+
+  // Saving preferred theme mode on local storage
+  localStorage.setItem(LOCAL_STORAGE_TODO_THEME, themeMode);
 }
 
 render();

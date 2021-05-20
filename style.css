@@ -30,6 +30,12 @@ body {
   color: var(--clr-dark-font);
   display: flex;
   flex-direction: column;
+  transition: background 300ms ease, color 300ms ease;
+}
+
+body.dark-mode {
+  background-color: var(--clr-secondary);
+  color: var(--clr-light-font);
 }
 
 .container {
@@ -59,6 +65,11 @@ body {
   color: rgba(0, 0, 0, 0.2);
   letter-spacing: 2px;
   margin: -0.3rem 0 0.5rem;
+  transition: color 100ms ease;
+}
+
+.title.dark-mode {
+  color: rgba(255, 255, 255, 0.3);
 }
 
 .task-wrapper {
@@ -156,9 +167,14 @@ form {
 .todo-list {
   --spacer: 1.5rem;
   background: var(--clr-light-100);
-  color: var(--clr-dark-font);
+  color: inherit;
   width: 100%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  transition: background 100ms ease;
+}
+
+.todo-list.dark-mode {
+  background: var(--clr-dark-100);
 }
 
 .todo-header {
@@ -167,6 +183,11 @@ form {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  transition: background 100ms ease;
+}
+
+.todo-header.dark-mode {
+  background: var(--clr-dark-400);
 }
 
 .list-title {
