@@ -9,6 +9,7 @@ const listTitleElement = document.querySelector('[data-list-title]');
 const listCountElement = document.querySelector('[data-list-count]');
 const newTodoForm = document.querySelector('[data-new-todo-form]');
 const newTodoInput = document.querySelector('[data-new-todo-input]');
+const todoTemplate = document.getElementById('todo-template');
 
 const LOCAL_STORAGE_LIST_KEY = 'task.lists';
 const LOCAL_STORAGE_SELECTED_LIST_ID_KEY = 'task.selectedListId';
@@ -81,6 +82,7 @@ function render() {
     listTitleElement.innerText = selectedList.name;
     renderTaskCount(selectedList);
     clearElement(tasksContainer);
+    renderTodos(selectedList);
   }
 }
 
@@ -105,6 +107,20 @@ function renderTaskCount(selectedList) {
   ).length;
   const taskString = incompleteTaskCount <= 1 ? 'task' : 'tasks';
   listCountElement.innerText = `${incompleteTaskCount} ${taskString} remaining`;
+}
+
+// Rendering all todo list of selected task
+function renderTodos(selectedList) {
+  selectedList.tasks.forEach((task) => {
+    const todoElement = document.importNode(todoTemplate.content, true);
+    const checkbox = todoElement.querySelector('input');
+    checkbox.id = task.id;
+    checkbox.checked = task.complete;
+    const label = todoElement.querySelector('label');
+    label.htmlFor = task.id;
+    label.append(task.name);
+    tasksContainer.appendChild(todoElement);
+  });
 }
 
 // Clear list of task

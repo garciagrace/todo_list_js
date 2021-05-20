@@ -61,26 +61,8 @@
             <p class="task-count" data-list-count>2 tasks remaining</p>
           </div>
 
-          <!-- Todo 1 -->
           <div class="todo-body">
-            <div class="tasks" data-tasks>
-              <div class="task">
-                <input type="checkbox" id="task-1" />
-                <label for="task-1">
-                  <span class="custom-checkbox"></span>
-                  Doing the laundry
-                </label>
-              </div>
-
-              <!-- Todo 2 -->
-              <div class="task">
-                <input type="checkbox" id="task-2" />
-                <label for="task-2">
-                  <span class="custom-checkbox"></span>
-                  Dusting and sweeping dust.
-                </label>
-              </div>
-            </div>
+            <div class="tasks" data-tasks></div>
 
             <div class="new-task-creator">
               <!-- Create new task -->
@@ -103,5 +85,15 @@
         </div>
       </div>
     </div>
+
+    <!-- Template for todo -->
+    <template id="todo-template">
+      <div class="task">
+        <input type="checkbox" />
+        <label>
+          <span class="custom-checkbox"></span>
+        </label>
+      </div>
+    </template>
   </body>
 </html>
