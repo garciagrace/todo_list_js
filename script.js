@@ -6,6 +6,9 @@ const newListForm = document.querySelector('[data-new-list-form]');
 const newListInput = document.querySelector('[data-new-list-input]');
 const tasksContainer = document.querySelector('[data-tasks]');
 const listTitleElement = document.querySelector('[data-list-title]');
+const listCountElement = document.querySelector('[data-list-count]');
+const newTodoForm = document.querySelector('[data-new-todo-form]');
+const newTodoInput = document.querySelector('[data-new-todo-input]');
 
 const LOCAL_STORAGE_LIST_KEY = 'task.lists';
 const LOCAL_STORAGE_SELECTED_LIST_ID_KEY = 'task.selectedListId';
@@ -31,8 +34,24 @@ newListForm.addEventListener('submit', (e) => {
   saveAndRender();
 });
 
+// Event listener for creating new todo
+newTodoForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const taskName = newTodoInput.value;
+  if (taskName == null || taskName === '') return;
+  const task = createTodo(taskName);
+  newTodoInput.value = null;
+  const selectedList = lists.find((list) => list.id === selectedListId);
+  selectedList.tasks.push(task);
+  saveAndRender();
+});
+
 function createTaskList(name) {
   return { id: Date.now().toString(), name: name, tasks: [] };
+}
+
+function createTodo(name) {
+  return { id: Date.now().toString(), name: name, complete: false };
 }
 
 function saveAndRender() {
@@ -60,6 +79,7 @@ function render() {
     // Showing todo list of selected task
     listDisplayContainer.style.display = '';
     listTitleElement.innerText = selectedList.name;
+    renderTaskCount(selectedList);
     clearElement(tasksContainer);
   }
 }
@@ -76,6 +96,15 @@ function renderLists() {
     }
     listsContainer.appendChild(listElement);
   });
+}
+
+// Rendering the total number of unfinished todo
+function renderTaskCount(selectedList) {
+  const incompleteTaskCount = selectedList.tasks.filter(
+    (task) => !task.complete
+  ).length;
+  const taskString = incompleteTaskCount <= 1 ? 'task' : 'tasks';
+  listCountElement.innerText = `${incompleteTaskCount} ${taskString} remaining`;
 }
 
 // Clear list of task

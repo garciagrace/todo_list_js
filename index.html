@@ -40,10 +40,7 @@
         <!-- All task -->
         <div class="all-tasks">
           <h2 class="task-list-title">My lists</h2>
-          <ul class="task-list" data-lists>
-            <li class="list-name active-list">Household Chores</li>
-            <li class="list-name">Grocery</li>
-          </ul>
+          <ul class="task-list" data-lists></ul>
 
           <!-- Create New List -->
           <form action="" data-new-list-form>
@@ -60,8 +57,8 @@
         <div class="todo-list" data-list-display-container>
           <!-- Current Todo -->
           <div class="todo-header">
-            <h2 class="list-title" data-list-title>Household Chores</h2>
-            <p class="task-count">2 tasks remaining</p>
+            <h2 class="list-title" data-list-title></h2>
+            <p class="task-count" data-list-count>2 tasks remaining</p>
           </div>
 
           <!-- Todo 1 -->
@@ -87,11 +84,12 @@
 
             <div class="new-task-creator">
               <!-- Create new task -->
-              <form action="">
+              <form action="" data-new-todo-form>
                 <input
                   type="text"
                   class="new task"
                   placeholder="Add new task"
+                  data-new-todo-input
                 />
                 <button class="btn create">+</button>
               </form>
