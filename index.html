@@ -23,6 +23,8 @@
 
     <!-- Custom Style -->
     <link rel="stylesheet" href="./style.css" />
+
+    <script defer src="./script.js"></script>
     <title>Todo List</title>
   </head>
   <body>
@@ -38,7 +40,7 @@
         <!-- All task -->
         <div class="all-tasks">
           <h2 class="task-list-title">My lists</h2>
-          <ul class="task-list">
+          <ul class="task-list" data-lists>
             <li class="list-name active-list">Household Chores</li>
             <li class="list-name">Grocery</li>
           </ul>
@@ -50,16 +52,16 @@
           </form>
         </div>
 
-        <div class="todo-list">
+        <div class="todo-list" data-list-display-container>
           <!-- Current Todo -->
           <div class="todo-header">
-            <h2 class="list-title">Household Chores</h2>
+            <h2 class="list-title" data-list-title>Household Chores</h2>
             <p class="task-count">2 tasks remaining</p>
           </div>
 
           <!-- Todo 1 -->
           <div class="todo-body">
-            <div class="tasks">
+            <div class="tasks" data-tasks>
               <div class="task">
                 <input type="checkbox" id="task-1" />
                 <label for="task-1">
