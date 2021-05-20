@@ -2,15 +2,15 @@ const listsContainer = document.querySelector('[data-lists]');
 const listDisplayContainer = document.querySelector(
   '[data-list-display-container]'
 );
+const newListForm = document.querySelector('[data-new-list-form]');
+const newListInput = document.querySelector('[data-new-list-input]');
 const tasksContainer = document.querySelector('[data-tasks]');
 const listTitleElement = document.querySelector('[data-list-title]');
 
+const LOCAL_STORAGE_LIST_KEY = 'task.lists';
 const LOCAL_STORAGE_SELECTED_LIST_ID_KEY = 'task.selectedListId';
-let lists = [
-  { id: '1', name: 'a' },
-  { id: '2', name: 'b' },
-];
-let selectedListId = null;
+let lists = JSON.parse(localStorage.getItem(LOCAL_STORAGE_LIST_KEY)) || [];
+let selectedListId = localStorage.getItem(LOCAL_STORAGE_SELECTED_LIST_ID_KEY);
 
 // Fetching the ID of selected task on the list
 listsContainer.addEventListener('click', (e) => {
@@ -20,12 +20,29 @@ listsContainer.addEventListener('click', (e) => {
   }
 });
 
+// Event listener for creating new task
+newListForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const listName = newListInput.value;
+  if (listName == null || listName === '') return;
+  const list = createTaskList(listName);
+  newListInput.value = null;
+  lists.push(list);
+  saveAndRender();
+});
+
+function createTaskList(name) {
+  return { id: Date.now().toString(), name: name, tasks: [] };
+}
+
 function saveAndRender() {
   save();
   render();
 }
 
 function save() {
+  // Saving all task list on local storage
+  localStorage.setItem(LOCAL_STORAGE_LIST_KEY, JSON.stringify(lists));
   // Saving selected list ID on local storage
   localStorage.setItem(LOCAL_STORAGE_SELECTED_LIST_ID_KEY, selectedListId);
 }
