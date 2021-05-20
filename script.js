@@ -10,6 +10,10 @@ const listCountElement = document.querySelector('[data-list-count]');
 const newTodoForm = document.querySelector('[data-new-todo-form]');
 const newTodoInput = document.querySelector('[data-new-todo-input]');
 const todoTemplate = document.getElementById('todo-template');
+const clearCompleteTasksButton = document.querySelector(
+  '[data-clear-complete-tasks-button]'
+);
+const deleteListButton = document.querySelector('[data-delete-list-button]');
 
 const LOCAL_STORAGE_LIST_KEY = 'task.lists';
 const LOCAL_STORAGE_SELECTED_LIST_ID_KEY = 'task.selectedListId';
@@ -24,7 +28,20 @@ listsContainer.addEventListener('click', (e) => {
   }
 });
 
-// Event listener for creating new task
+// Checked/unchecked specific todo and adjusting total number of todo
+tasksContainer.addEventListener('click', (e) => {
+  if (e.target.tagName.toLowerCase() === 'input') {
+    const selectedList = lists.find((list) => list.id === selectedListId);
+    const selectedTask = selectedList.tasks.find(
+      (task) => task.id === e.target.id
+    );
+    selectedTask.complete = e.target.checked;
+    save();
+    renderTaskCount(selectedList);
+  }
+});
+
+// Creating new task
 newListForm.addEventListener('submit', (e) => {
   e.preventDefault();
   const listName = newListInput.value;
@@ -35,7 +52,7 @@ newListForm.addEventListener('submit', (e) => {
   saveAndRender();
 });
 
-// Event listener for creating new todo
+// Creating new todo
 newTodoForm.addEventListener('submit', (e) => {
   e.preventDefault();
   const taskName = newTodoInput.value;
@@ -45,6 +62,21 @@ newTodoForm.addEventListener('submit', (e) => {
   const selectedList = lists.find((list) => list.id === selectedListId);
   selectedList.tasks.push(task);
   saveAndRender();
+});
+
+// Remove completed todo on the list
+clearCompleteTasksButton.addEventListener('click', (e) => {
+  const selectedList = lists.find((list) => list.id === selectedListId);
+  selectedList.tasks = selectedList.tasks.filter((task) => !task.complete);
+  saveAndRender();
+});
+
+// Remove task on the list
+deleteListButton.addEventListener('click', (e) => {
+  lists = lists.filter((list) => list.id !== selectedListId);
+  selectedListId = null;
+  saveAndRender();
+  localStorage.removeItem(LOCAL_STORAGE_SELECTED_LIST_ID_KEY);
 });
 
 function createTaskList(name) {
