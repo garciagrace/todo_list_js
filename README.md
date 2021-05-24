@@ -12,3 +12,4 @@ Users should be able to:
 - Delete entire task list
 - Clear all completed todos
 - Toggle light and dark mode
+- Store task and todo list on local storage
